@@ -1,23 +1,30 @@
 #include <iostream>
 using namespace std;
 
-class Singleton
+class Random
 {
 public:
-    Singleton(const Singleton&) = delete;
+    Random(const Random&) = delete;
 
-    static Singleton& Get(){
+    static Random& Get(){
+        static Random s_instance;
         return s_instance;
     }
-    void function() {}
+    static float Float() {return Get().FloatInternal();}
+
 private:
-    Singleton() {}
-    static Singleton s_instance;
+    float FloatInternal() {return m_RnadomGenerator;}
+    Random() {}
+    
+    float m_RnadomGenerator = 0.5f;
+
 };
-Singleton Singleton :: s_instance;
+
 int main()
 {
-    Singleton& instance = Singleton::Get();
-    instance.function();
-    return 0;
+    float number = Random::Float();
+    cout<<"Your number is: "<<number;
+    // auto& instance = Random::Get();
+    // instance.function();
+    // return 0;
 }
